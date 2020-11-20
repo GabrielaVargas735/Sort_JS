@@ -7,7 +7,7 @@
 //
 
 // MODELO - API User ID - CAMBIARLO al User ID que tienen asignado.
-const uid = 1;
+const uid = 25;
 
 // MODELO - Lista de tareas (Array).
 let tareas = [];
@@ -41,6 +41,7 @@ function taskStatus(id, complete) {
       .then((data) => {
         console.log(data);
       });
+    break;
   }
 }
 
@@ -103,6 +104,13 @@ function appendTaskDOM(tarea) {
     // Borra la tarea en el DOM.
     event.currentTarget.parentNode.remove();
   });
+  // CONTROLADOR - Evento para ocultar tareas.
+  const ocultarTareas = document.getElementById('hide-completed');
+  if(ocultarTareas === ocultarTareas.checked){
+    const tareasMarcadas = {
+      completo:taskStatus
+    };
+  }
 }
 
 // VISTA - refreshTasksDOM(): Refresca la lista completa de tareas en el DOM.
@@ -165,5 +173,7 @@ fetch(`https://js2-tareas-api.netlify.app/api/tareas?uid=${uid}`)
   .then((data) => {
     tareas = data;
     // VISTA - Inicialización de la lista del DOM, a partir de las tareas existentes.
-    refreshTasksDOM(tareas);
+    for (let i = 0; i < tareas.length; i++){
+      appendTaskDOM(tareas[i]);
+    }
   });
